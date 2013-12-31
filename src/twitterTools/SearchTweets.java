@@ -84,6 +84,73 @@ public class SearchTweets {
 		return tweets;
 		 
 	 }
-	 
+	 public List<Status> searchUserMentions()throws TwitterException{
+		 int page=1;
+
+		 List<Status>tweets=null;
+
+		 int total=0;
+		 while(true){
+			 Paging paging=new Paging(page++,COUNT_MAX);
+			 try{
+				 if(tweets==null){
+					 tweets=twitter.getMentionsTimeline(paging);
+				 }else{
+					 total=tweets.size();
+					 tweets.addAll(twitter.getMentionsTimeline(paging));
+				 }
+				 System.out.println("page= "+page);
+			 }catch(TwitterException e){
+				 if(RATE_LIMITED_STATUS_CODE!=e.getStatusCode()){
+					 e.printStackTrace();
+					 continue;
+				 }
+				 e.printStackTrace();
+				 break;
+			 }
+			 if(tweets.size()==total){
+				 break;
+			 }
+			 
+		 }
+
+
+		return tweets;
+		 
+	 }
+	 public List<Status> searchMyTweets()throws TwitterException{
+		 int page=1;
+
+		 List<Status>tweets=null;
+
+		 int total=0;
+		 while(true){
+			 Paging paging=new Paging(page++,COUNT_MAX);
+			 try{
+				 if(tweets==null){
+					 tweets=twitter.getMentionsTimeline(paging);
+				 }else{
+					 total=tweets.size();
+					 tweets.addAll(twitter.getMentionsTimeline(paging));
+				 }
+				 System.out.println("page= "+page);
+			 }catch(TwitterException e){
+				 if(RATE_LIMITED_STATUS_CODE!=e.getStatusCode()){
+					 e.printStackTrace();
+					 continue;
+				 }
+				 e.printStackTrace();
+				 break;
+			 }
+			 if(tweets.size()==total){
+				 break;
+			 }
+			 
+		 }
+
+
+		return tweets;
+		 
+	 }
 	
 }
